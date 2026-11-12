@@ -1,0 +1,61 @@
+---
+import { cities } from "../data/ars";
+// C-002 history and staff, C-003 formats, C-004 cities.
+---
+<section id="about" class="section about" data-rec="W-R010" aria-labelledby="about-title">
+  <div class="container about__grid">
+    <div class="about__left">
+    <p class="about__year num" aria-hidden="true">1994</p>
+    <div class="about__cities">
+      <h3>9 міст мережі</h3>
+      <ul class="cities">
+        {cities.map((c) => <li class:list={["cities__item", { "cities__item--here": c === "Львів" }]}>{c}</li>)}
+      </ul>
+    </div>
+    </div>
+    <div class="about__right">
+    <div class="about__text">
+      <h2 id="about-title">АРС з 1994 року</h2>
+      <p class="section__lead">Становлення АРС почалося в 1994 році в Тернополі. З маленького магазину компанія виросла в мережу будівельних супермаркетів і меблевих салонів.</p>
+      <ul class="about__facts">
+        <li><strong class="num">понад 700</strong> фахівців</li>
+        <li><strong>Гуртово-роздрібна мережа</strong> з прямими поставками від виробників</li>
+        <li><strong>Кваліфікований сервіс</strong> та гарантія</li>
+      </ul>
+    </div>
+    <figure class="about__slot">
+      <div class="about__slot-box"><span>Зображення клієнта: торговий зал або склад АРС</span></div>
+    </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__grid { display: grid; gap: var(--s-6); }
+  .about__year {
+    font: 800 var(--fs-figure) / 0.85 var(--font-display); color: var(--color-accent);
+    letter-spacing: -0.04em; margin: 0;
+  }
+  .about__text { display: grid; gap: var(--s-4); align-content: start; min-width: 0; }
+  .about__facts { display: grid; gap: var(--s-2); margin-top: var(--s-2); }
+  .about__facts li { padding-top: var(--s-2); border-top: 1px solid var(--color-rule); }
+  .about__facts strong { font-weight: 600; }
+  .about__cities { display: grid; gap: var(--s-4); align-content: start; min-width: 0; }
+  .cities { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); font: 800 var(--fs-3) / 1.25 var(--font-display); }
+  .cities__item { color: var(--color-muted); }
+  .cities__item--here { color: var(--color-text); text-decoration: underline var(--color-accent) 2px; text-underline-offset: 0.2em; }
+  .about__slot { margin: 0; }
+  .about__slot-box {
+    display: grid; place-items: center; aspect-ratio: 4 / 3; padding: var(--s-5);
+    background: var(--color-bg-2); border: 1px dashed var(--color-rule);
+    font-size: var(--fs-0); color: var(--color-muted); text-align: center;
+  }
+
+  .about__left, .about__right { display: grid; gap: var(--s-6); align-content: start; min-width: 0; }
+  @media (min-width: 64rem) {
+    .about__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gutter); align-items: start; }
+    .about__left { grid-column: 1 / span 7; gap: var(--s-5); }
+    .about__right { grid-column: 8 / span 5; padding-top: var(--s-4); }
+    .about__slot-box { aspect-ratio: 3 / 1; }
+  }
+</style>

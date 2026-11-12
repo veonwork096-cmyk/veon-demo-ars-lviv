@@ -1,0 +1,66 @@
+---
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { groups, maxCount, phone, viberBot, SOON } from "../data/ars";
+---
+<section id="catalog" class="section catalog" data-rec="W-R004" aria-labelledby="catalog-title">
+  <div class="container">
+    <div class="section__head">
+      <h2 id="catalog-title">14 груп у&nbsp;львівському каталозі</h2>
+      <p class="section__lead">Довжина смуги показує, скільки товарів у групі. Один товар може бути в кількох групах, тому разом вони дають більше, ніж 3410.</p>
+    </div>
+
+    <ol class="scale" data-grow>
+      {groups.map((g, i) => (
+        <li class="scale__item" style={`--w:${(g.count / maxCount).toFixed(4)};--i:${i}`}>
+          <FutureLink note={SOON} class="scale__row">
+            <span class="scale__name">{g.name}</span>
+            <span class="scale__num num">{g.count}<span class="visually-hidden"> товарів</span></span>
+            <Icon name="right" class="scale__arrow" />
+            <span class="scale__track" aria-hidden="true"><span class="scale__fill"></span></span>
+          </FutureLink>
+        </li>
+      ))}
+    </ol>
+
+    <p class="caption catalog__note">
+      Кількість товарів у групах за каталогом АРС, 11.11.2026. Ціну й наявність уточнюйте за телефоном
+      <a class="num" href={phone.href}>{phone.label}</a> або у&nbsp;<a href={viberBot.href}>Viber</a>.
+    </p>
+  </div>
+</section>
+
+<style>
+  .scale { display: grid; gap: 0 var(--s-7); }
+  .scale__item { border-top: 1px solid var(--color-rule); }
+  .scale__item:last-child { border-bottom: 1px solid var(--color-rule); }
+  .scale :global(.scale__row) {
+    display: grid; width: 100%;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    column-gap: var(--s-3); row-gap: var(--s-2); align-items: baseline;
+    padding-block: var(--s-4); color: var(--color-text); text-decoration: none;
+  }
+  .scale__name { font-weight: 600; text-decoration: underline dashed var(--color-accent) 1px; text-underline-offset: 0.25em; }
+  .scale__num { font: 800 var(--fs-3) / 1 var(--font-display); }
+  .scale :global(.scale__arrow) {
+    width: 1.125rem; height: 1.125rem; align-self: center; color: var(--color-muted);
+    transition: transform var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+  }
+  .scale__track { grid-column: 1 / -1; height: var(--bar-h); background: var(--color-track-light); }
+  .scale__fill {
+    display: block; height: 100%; width: calc(var(--w) * 100%); min-width: 4px;
+    background: var(--color-accent); transform-origin: left center;
+    transition: background-color var(--dur-short) var(--ease-out);
+  }
+  .scale :global(.scale__row:hover) .scale__fill,
+  .scale :global(.scale__row:focus-visible) .scale__fill { background: var(--color-text); }
+  .scale :global(.scale__row:hover) :global(.scale__arrow),
+  .scale :global(.scale__row:focus-visible) :global(.scale__arrow) { transform: translateX(4px); color: var(--color-text); }
+  @media (min-width: 64rem) { .catalog { padding-top: var(--s-7); } }
+  .catalog__note { margin-top: var(--s-5); max-width: var(--measure); }
+
+  @media (min-width: 64rem) {
+    .scale { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: column; grid-template-rows: repeat(7, auto); }
+    .scale__item:nth-child(7) { border-bottom: 1px solid var(--color-rule); }
+  }
+</style>

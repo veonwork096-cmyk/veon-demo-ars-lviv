@@ -1,0 +1,40 @@
+---
+import Icon from "./Icon.astro";
+import { phone, viberBot, telegram } from "../data/ars";
+---
+<nav class="mbar" aria-label="Зв'язатися з АРС" data-rec="W-R002,G-R003">
+  <a href={phone.href}><Icon name="phone" />Подзвонити</a>
+  <a href={viberBot.href}><Icon name="viber" />Viber</a>
+  <a href={telegram.href}><Icon name="telegram" />Telegram</a>
+</nav>
+
+<style>
+  .mbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    background: var(--color-text); color: var(--color-on-dark);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    transition: transform var(--dur-short) var(--ease-out);
+  }
+  .mbar a {
+    display: flex; align-items: center; justify-content: center; gap: var(--s-2);
+    min-height: 3.5rem; font-weight: 600; font-size: var(--fs-0); text-decoration: none;
+    transition: background-color var(--dur-micro) var(--ease-out);
+  }
+  .mbar a + a { border-left: 1px solid var(--color-muted); }
+  .mbar a:hover, .mbar a:active { background: var(--color-deep); }
+  .mbar a:focus-visible { outline: 2px solid var(--color-signal); outline-offset: -4px; }
+  .mbar svg { width: 1.25rem; height: 1.25rem; }
+  /* hidden until the first screen is scrolled away (script); without scripts it simply stays */
+  .mbar.is-armed:not(.is-shown) { transform: translateY(100%); visibility: hidden; transition: transform var(--dur-short) var(--ease-in), visibility 0s var(--dur-short); }
+  @media (min-width: 48rem) { .mbar { display: none; } }
+</style>
+
+<script>
+  const bar = document.querySelector<HTMLElement>(".mbar");
+  const hero = document.getElementById("top");
+  if (bar && hero && "IntersectionObserver" in window) {
+    bar.classList.add("is-armed");
+    new IntersectionObserver(([e]) => bar.classList.toggle("is-shown", !e.isIntersecting), { threshold: 0, rootMargin: "-96px 0px 0px 0px" }).observe(hero);
+  }
+</script>

@@ -1,0 +1,63 @@
+---
+import Icon from "./Icon.astro";
+import { phone, hours, viberBot, viberNumber, telegram, email, office } from "../data/ars";
+// C-007 online shop, company.contacts.messengers, C-008 central office. C-009 (Lviv address) is unconfirmed: not shown.
+---
+<section id="contacts" class="section contacts" aria-labelledby="contacts-title">
+  <div class="container contacts__grid">
+    <div class="contacts__main">
+      <h2 id="contacts-title">Подзвоніть або напишіть</h2>
+      <p class="contacts__label">Інтернет-магазин</p>
+      <a class="contacts__phone num" href={phone.href}>{phone.label}</a>
+      <p>{hours}</p>
+      <div class="contacts__btns">
+        <a class="btn btn--primary num" href={phone.href}><Icon name="phone" />Подзвонити</a>
+        <a class="btn btn--ghost" href={viberBot.href}><Icon name="viber" />Viber</a>
+        <a class="btn btn--ghost" href={telegram.href}><Icon name="telegram" />Telegram</a>
+      </div>
+    </div>
+    <div class="contacts__side">
+      <dl class="contacts__list">
+        <div><dt>Viber</dt><dd><a class="num" href={viberNumber.href}>{viberNumber.label}</a></dd></div>
+        <div><dt>Telegram</dt><dd><a href={telegram.href}>{telegram.handle}</a></dd></div>
+        <div><dt>Пошта</dt><dd><a href={email.href}>{email.label}</a></dd></div>
+        <div><dt>Центральний офіс</dt><dd><a class="num" href={office.href}>{office.label}</a></dd></div>
+      </dl>
+      <p class="contacts__pickup">Самовивіз у Львові: адресу магазину уточнюйте за телефоном <a class="num" href={phone.href}>{phone.label}</a>.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contacts { background: var(--color-field); color: var(--color-text); }
+  .contacts a { text-decoration-color: var(--color-text); }
+  .contacts__grid { display: grid; gap: var(--s-7); }
+  .contacts__main { display: grid; gap: var(--s-3); align-content: start; min-width: 0; }
+  .contacts__main h2 { margin-bottom: var(--s-4); text-wrap: balance; }
+  .contacts__label { font-weight: 600; }
+  .contacts__phone {
+    font: 800 clamp(2.125rem, 0.5rem + 5vw, 5rem) / 1 var(--font-display); white-space: nowrap;
+    letter-spacing: -0.02em; text-decoration: none; justify-self: start;
+  }
+  .contacts__phone:hover { text-decoration: underline 2px; text-underline-offset: 0.12em; }
+  .contacts__btns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-3); margin-top: var(--s-4); }
+  .contacts__btns .btn--primary { grid-column: 1 / -1; }
+  .contacts__btns .btn--ghost { padding-inline: var(--s-3); }
+  .contacts__side { display: grid; gap: var(--s-5); align-content: start; min-width: 0; }
+  .contacts__list { display: grid; gap: var(--s-3); }
+  .contacts__list div { display: grid; gap: var(--s-1); padding-top: var(--s-3); border-top: 1px solid var(--color-text); }
+  .contacts__list dt { font-size: var(--fs-0); }
+  .contacts__list dd { font-weight: 600; font-size: var(--fs-2); }
+  .contacts__list a { display: inline-flex; align-items: center; min-height: 2.75rem; overflow-wrap: anywhere; }
+  .contacts__pickup { max-width: 40ch; }
+
+  @media (min-width: 48rem) {
+    .contacts__btns { display: flex; flex-wrap: wrap; }
+    .contacts__btns .btn--ghost { padding-inline: var(--s-5); }
+  }
+  @media (min-width: 64rem) {
+    .contacts__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gutter); }
+    .contacts__main { grid-column: 1 / span 7; }
+    .contacts__side { grid-column: 9 / span 4; padding-top: var(--s-3); }
+  }
+</style>

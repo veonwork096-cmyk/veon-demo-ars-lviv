@@ -1,0 +1,52 @@
+---
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { phone, viberBot, telegram, SOON } from "../data/ars";
+// C-023 wholesale banner and «Гурт від» prices, C-010 cashless for ТОВ/ФОП, C-003 direct supplies.
+---
+<section id="wholesale" class="section wholesale on-deep" data-rec="W-R007" aria-labelledby="wholesale-title">
+  <div class="container wholesale__grid">
+    <div class="wholesale__main">
+      <h2 id="wholesale-title">Гурт для майстрів і бригад</h2>
+      <p class="wholesale__figure"><span class="wholesale__num num">до&nbsp;20%</span> <span class="wholesale__unit">економ на гуртових покупках</span></p>
+      <ul class="wholesale__list">
+        <li><strong>«Гурт від»</strong>: окрема гуртова ціна на картках товарів</li>
+        <li><strong>Безготівковий розрахунок</strong> для ТОВ і ФОП</li>
+        <li><strong>Прямі поставки</strong> від виробників</li>
+      </ul>
+    </div>
+    <div class="wholesale__act">
+      <p class="wholesale__ask">Надішліть список матеріалів у месенджер або зателефонуйте. Від якої кількості діє гуртова ціна, підкаже менеджер.</p>
+      <div class="wholesale__btns">
+        <a class="btn btn--ghost" href={viberBot.href}><Icon name="viber" />Список у Viber</a>
+        <a class="btn btn--ghost" href={telegram.href}><Icon name="telegram" />Список у Telegram</a>
+      </div>
+      <p class="wholesale__call">або телефонуйте <a class="num" href={phone.href}>{phone.label}</a></p>
+      <p><FutureLink note={SOON}>Детальніше для гуртових покупців</FutureLink></p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .wholesale { background: var(--color-deep); color: var(--color-on-dark); }
+  .wholesale a { text-decoration-color: var(--color-signal); }
+  .wholesale__grid { display: grid; gap: var(--s-7); }
+  .wholesale__main { display: grid; gap: var(--s-5); align-content: start; min-width: 0; }
+  .wholesale__figure { display: grid; gap: var(--s-1); }
+  .wholesale__num { font: 800 clamp(4.5rem, 2rem + 9vw, 10rem) / 0.9 var(--font-display); color: var(--color-signal); letter-spacing: -0.03em; white-space: nowrap; }
+  .wholesale__unit { font-size: var(--fs-2); font-weight: 600; }
+  .wholesale__list { display: grid; gap: var(--s-3); }
+  .wholesale__list li { padding-top: var(--s-3); border-top: 1px solid var(--color-signal); }
+  .wholesale__list strong { font-weight: 600; color: var(--color-signal); }
+  .wholesale__act { display: grid; gap: var(--s-5); align-content: start; min-width: 0; }
+  .wholesale__ask { font-size: var(--fs-2); line-height: 1.45; max-width: 36ch; }
+  .wholesale__btns { display: grid; gap: var(--s-3); }
+  .wholesale__btns .btn { justify-content: flex-start; }
+  .wholesale__call { font-weight: 600; }
+
+  @media (min-width: 64rem) {
+    .wholesale__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gutter); }
+    .wholesale__main { grid-column: 1 / span 6; }
+    .wholesale__act { grid-column: 8 / span 5; padding-top: var(--s-2); }
+  }
+</style>

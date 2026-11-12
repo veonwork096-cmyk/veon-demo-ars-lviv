@@ -1,0 +1,126 @@
+---
+import { asset } from "../data/asset";
+import Icon from "./Icon.astro";
+import { phone, viberBot, telegram, hours } from "../data/ars";
+const nav = [
+  { href: "#catalog", label: "Каталог" },
+  { href: "#delivery", label: "Доставка й оплата" },
+  { href: "#wholesale", label: "Гуртовим" },
+  { href: "#contacts", label: "Контакти" },
+];
+---
+<header class="hdr">
+  <div class="container hdr__in">
+    <a class="hdr__logo" href="#top" aria-label="АРС, на початок сторінки">
+      <img src={asset("logo-ars.svg")} width="114" height="36" alt="АРС" />
+    </a>
+    <p class="hdr__city" data-rec="W-R001"><span class="visually-hidden">Ваше місто: </span>Львів</p>
+    <nav class="hdr__nav" aria-label="Розділи сторінки">
+      <ul>
+        {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="hdr__contact">
+      <a class="hdr__phone num" href={phone.href} data-rec="W-R002">
+        <Icon name="phone" />
+        <span class="hdr__phone-text">{phone.label}</span>
+        <span class="visually-hidden hdr__phone-sr">Подзвонити {phone.label}</span>
+      </a>
+      <a class="hdr__icon" href={viberBot.href} aria-label="Написати у Viber"><Icon name="viber" /></a>
+      <a class="hdr__icon" href={telegram.href} aria-label="Написати в Telegram"><Icon name="telegram" /></a>
+      <button class="hdr__menu" type="button" popovertarget="menu" aria-label="Відкрити меню"><Icon name="menu" /></button>
+    </div>
+  </div>
+</header>
+
+<div id="menu" class="menu" popover>
+  <div class="menu__top">
+    <a class="hdr__logo" href="#top" data-close aria-label="АРС, на початок сторінки"><img src={asset("logo-ars.svg")} width="114" height="36" alt="АРС" /></a>
+    <button class="hdr__menu" type="button" popovertarget="menu" popovertargetaction="hide" aria-label="Закрити меню"><Icon name="close" /></button>
+  </div>
+  <nav aria-label="Меню">
+    <ul class="menu__list">
+      {nav.map((n) => <li><a href={n.href} data-close>{n.label}</a></li>)}
+      <li><a href="#about" data-close>Про АРС</a></li>
+    </ul>
+  </nav>
+  <div class="menu__contact">
+    <a class="btn btn--primary num" href={phone.href}><Icon name="phone" />Подзвонити {phone.label}</a>
+    <div class="menu__pair">
+      <a class="btn btn--ghost" href={viberBot.href}><Icon name="viber" />Viber</a>
+      <a class="btn btn--ghost" href={telegram.href}><Icon name="telegram" />Telegram</a>
+    </div>
+    <p class="caption">Інтернет-магазин: {hours}</p>
+  </div>
+</div>
+
+<style>
+  .hdr {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .hdr__in { display: flex; align-items: center; gap: var(--s-4); height: var(--header-h); }
+  .hdr__logo { display: inline-flex; align-items: center; min-height: var(--hit); flex: none; }
+  .hdr__logo img { width: 92px; height: auto; }
+  .hdr__city { font-weight: 600; padding-left: var(--s-4); border-left: 1px solid var(--color-rule); line-height: 1.2; }
+  .hdr__nav { display: none; }
+  .hdr__contact { margin-left: auto; display: flex; align-items: center; gap: var(--s-1); }
+  .hdr__phone, .hdr__icon, .hdr__menu {
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+    min-width: var(--hit); min-height: var(--hit);
+    color: var(--color-text); background: transparent; border: 0; border-radius: var(--radius);
+    text-decoration: none; cursor: pointer;
+    transition: background-color var(--dur-micro) var(--ease-out);
+  }
+  .hdr__phone:hover, .hdr__icon:hover, .hdr__menu:hover { background: var(--color-bg-2); }
+  .hdr__phone svg, .hdr__icon svg, .hdr__menu svg { width: 1.375rem; height: 1.375rem; }
+  .hdr__phone-text { display: none; font-weight: 600; }
+  .hdr__icon { display: none; }
+
+  @media (min-width: 48rem) {
+    .hdr__logo img { width: 114px; }
+    .hdr__phone { padding-inline: var(--s-3); }
+    .hdr__phone-text { display: inline; }
+    .hdr__phone-sr { display: none; }
+  }
+  @media (min-width: 64rem) {
+    .hdr__in { gap: var(--s-5); }
+    .hdr__nav { display: block; margin-left: var(--s-4); }
+    .hdr__nav ul { display: flex; gap: var(--s-1); }
+    .hdr__nav a {
+      display: inline-flex; align-items: center; min-height: var(--hit); padding-inline: var(--s-3);
+      font-size: var(--fs-0); font-weight: 600; text-decoration: none; border-radius: var(--radius);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .hdr__nav a:hover { background: var(--color-bg-2); }
+    .hdr__icon { display: inline-flex; }
+    .hdr__menu { display: none; }
+  }
+
+  /* full-screen menu (native popover: works without scripts, Esc closes) */
+  .menu {
+    position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+    margin: 0; padding: 0 var(--space) var(--s-6); border: 0;
+    background: var(--color-bg); color: var(--color-text);
+    flex-direction: column; overflow-y: auto;
+  }
+  .menu:popover-open { display: flex; }
+  .menu__top { display: flex; align-items: center; justify-content: space-between; height: var(--header-h); border-bottom: 1px solid var(--color-rule); }
+  .menu__list { padding-block: var(--s-5); }
+  .menu__list a {
+    display: flex; align-items: center; min-height: 3.5rem;
+    font: 800 var(--fs-3) / 1.1 var(--font-display); text-decoration: none;
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .menu__contact { margin-top: auto; display: grid; gap: var(--s-3); }
+  .menu__pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-3); }
+  .menu__pair .btn { padding-inline: var(--s-3); }
+</style>
+
+<script>
+  const menu = document.getElementById("menu") as (HTMLElement & { hidePopover?: () => void }) | null;
+  menu?.querySelectorAll("[data-close]").forEach((a) =>
+    a.addEventListener("click", () => menu.hidePopover?.()),
+  );
+</script>

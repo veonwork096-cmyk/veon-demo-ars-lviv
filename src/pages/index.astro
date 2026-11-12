@@ -1,0 +1,39 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Catalog from "../components/Catalog.astro";
+import Delivery from "../components/Delivery.astro";
+import Wholesale from "../components/Wholesale.astro";
+import About from "../components/About.astro";
+import Contacts from "../components/Contacts.astro";
+import Footer from "../components/Footer.astro";
+import MobileBar from "../components/MobileBar.astro";
+import { phone, legalName, email } from "../data/ars";
+
+const title = "Будівельні матеріали у Львові — 14 груп, 3410 товарів | АРС";
+const description = `Каталог будматеріалів АРС у Львові: сухі суміші, гіпсокартон, цегла, утеплення, покрівля. Самовивіз і доставка, гуртові ціни. ${phone.label}`;
+// Organization only: the Lviv store address is unconfirmed (C-009), so no LocalBusiness.
+const org = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "АРС",
+  legalName: legalName.replace(/[«»„“]/g, ""),
+  telephone: "+380973334300",
+  email: email.label,
+  contactPoint: [{ "@type": "ContactPoint", telephone: "+380973334300", contactType: "customer service", areaServed: "UA", availableLanguage: "uk" }],
+};
+---
+<Base lang="uk" title={title} description={description} rec="W-R006,SEO-R002,SEO-R006">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(org)} />
+  <Header slot="header" />
+  <Hero />
+  <Catalog />
+  <Delivery />
+  <Wholesale />
+  <About />
+  <Contacts />
+  <Footer slot="footer" />
+  <MobileBar slot="footer" />
+</Base>
+<script src="../scripts/grow.ts"></script>

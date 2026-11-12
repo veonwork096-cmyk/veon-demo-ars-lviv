@@ -1,0 +1,92 @@
+/* Hallmark · shape: index-first · genre: editorial · theme: custom · job: buy · idea: "АРС у Львові — у мірах: кількості, години й дні" · vibe: "точно, зелено, по-будівельному, без банерів"
+ * paper: #FBFCFA · accent: #228730 · field: #56C156 · display: Fixel Display · body: Fixel Text · hero: зелене поле бренду з H1, фактами отримання, дзвінком і прев'ю шкали асортименту · nav: світла липка шапка, логотип, місто текстом, 4 якорі, номер і месенджери праворуч · footer: світлий, юрособа, службові сторінки, номер · imagery: none (один слот під фото клієнта) · signature: шкала асортименту — 14 груп мірними смугами, довжина за кількістю товарів
+ * axes: light/grotesk-heavy/chromatic-green · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V3 · weakest: imagery, фото клієнта немає — сторінку несуть типографіка й реальні кількості C-005, один чесний слот під фото */
+/* Client design tokens from design/concept.md (veon-concept: colors, fonts). Breakpoints used in media queries: 48rem (768px), 64rem (1024px). */
+@font-face {
+  font-family: "Fixel Display";
+  src: url("/fonts/FixelDisplay-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fixel Text";
+  src: url("/fonts/FixelText-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fixel Text";
+  src: url("/fonts/FixelText-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* colour roles */
+  --color-bg: #FBFCFA;        /* paper */
+  --color-bg-2: #EEF2EC;      /* well: delivery, image slot */
+  --color-text: #102417;      /* ink, primary button fill */
+  --color-accent: #228730;    /* measure: bars, big figures, link underline */
+  --color-field: #56C156;     /* brand field: hero and contacts, dark text only */
+  --color-deep: #0F3320;      /* wholesale paper */
+  --color-signal: #AAD200;    /* lime, only on deep */
+  --color-muted: #4F5E53;     /* captions on light papers */
+  --color-rule: #C9D3CB;      /* hairlines, decorative */
+  --color-on-dark: #F7FAF6;   /* text on ink and deep, paper tinted toward brand hue */
+  --color-track: rgb(16 36 23 / 0.14);  /* bar track on field (ink at 14%) */
+  --color-track-light: rgb(16 36 23 / 0.07);
+
+  /* type */
+  --font-display: "Fixel Display", system-ui, sans-serif;
+  --font-body: "Fixel Text", system-ui, sans-serif;
+  --fs-0: 0.875rem;   /* 14 captions */
+  --fs-1: 1rem;       /* 16 body */
+  --fs-2: 1.25rem;    /* 20 lead */
+  --fs-3: 1.5625rem;  /* 25 h3 */
+  --fs-4: clamp(2rem, 1.2rem + 2.6vw, 3.25rem); /* 32-52 h2 */
+  --fs-5: 3.0625rem;  /* 49 figures */
+  --fs-display: clamp(2.75rem, 1.2rem + 5.4vw, 5.75rem);
+  --fs-figure: clamp(6rem, 16vw, 14rem);
+  --lh-tight: 0.98;
+  --lh-head: 1.1;
+  --lh-body: 1.55;
+
+  /* space: 4 8 12 16 24 40 64 96 144 */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2.5rem;
+  --s-7: 4rem;
+  --s-8: 6rem;
+  --s-9: 9rem;
+  --section-gap: clamp(4rem, 2.6rem + 4.4vw, 6rem);
+  --gutter: 1.5rem;
+  --space: clamp(1rem, 4vw, 4rem);  /* page margins */
+  --container: 1320px;
+  --measure: 62ch;
+
+  /* shape */
+  --radius: 2px;
+  --border: 2px;
+  --hit: 3rem;            /* 48px touch target */
+  --btn-h: 3.5rem;        /* 56 mobile */
+  --header-h: 4rem;
+  --bar-h: 0.625rem;
+
+  /* motion */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --ease-in: cubic-bezier(.5, 0, .75, 0);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+  --dur: 600ms;
+}
+@media (min-width: 64rem) {
+  :root { --header-h: 4.5rem; --btn-h: 3.25rem; }
+}

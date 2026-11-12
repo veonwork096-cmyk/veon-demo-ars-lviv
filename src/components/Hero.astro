@@ -1,0 +1,91 @@
+---
+import Icon from "./Icon.astro";
+import { phone, viberBot, telegram, hours, groups, maxCount, total } from "../data/ars";
+const top5 = groups.slice(0, 5);
+---
+<section id="top" class="hero" data-rec="W-R001,W-R003,M-R003,G-R002,G-R004,S-R008" aria-labelledby="hero-title">
+  <div class="container hero__grid">
+    <div class="hero__main">
+      <h1 id="hero-title" class="hero__title land land--title">Будівельні матеріали у Львові</h1>
+      <p class="hero__lede land" style="--i:1"><span class="num">{total}</span> товарів у&nbsp;14&nbsp;групах, від сухих сумішей до тротуарної плитки.</p>
+      <ul class="hero__facts land" style="--i:2" data-rec="W-R003">
+        <li><strong>Самовивіз безкоштовно</strong>: підготуємо замовлення до&nbsp;1&nbsp;години</li>
+        <li><strong>Доставка АРС по Львову</strong>: протягом 3&nbsp;днів</li>
+        <li><strong>Гуртові ціни</strong> для майстрів і бригад</li>
+      </ul>
+      <div class="hero__actions land" style="--i:3">
+        <a class="btn btn--primary hero__call num" href={phone.href}><Icon name="phone" />Подзвонити {phone.label}</a>
+        <div class="hero__msg">
+          <a class="btn btn--ghost" href={viberBot.href}><Icon name="viber" />Viber</a>
+          <a class="btn btn--ghost" href={telegram.href}><Icon name="telegram" />Telegram</a>
+        </div>
+      </div>
+      <p class="hero__hours land" style="--i:4">Інтернет-магазин працює {hours}</p>
+    </div>
+
+    <figure class="hero__scale" aria-labelledby="hero-scale-cap">
+      <figcaption id="hero-scale-cap" class="hero__scale-cap">Найбільші групи, кількість товарів</figcaption>
+      <ol class="hscale" data-grow>
+        {top5.map((g, i) => (
+          <li class="hscale__row" style={`--w:${(g.count / maxCount).toFixed(4)};--i:${i}`}>
+            <span class="hscale__name">{g.name}</span>
+            <span class="hscale__num num">{g.count}</span>
+            <span class="hscale__track" aria-hidden="true"><span class="hscale__fill"></span></span>
+          </li>
+        ))}
+      </ol>
+      <a class="hero__all" href="#catalog">Усі 14 груп <Icon name="down" /></a>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero { background: var(--color-field); color: var(--color-text); padding-block: var(--s-6) var(--s-7); }
+  .hero__grid { display: grid; gap: var(--s-7); }
+  .hero__main { display: grid; gap: var(--s-5); align-content: start; min-width: 0; }
+  .hero__title { font-size: var(--fs-display); line-height: var(--lh-tight); max-width: 11ch; }
+  .hero__lede { font-size: var(--fs-2); line-height: 1.4; font-weight: 600; max-width: 34ch; }
+  .hero__facts { display: grid; gap: var(--s-2); max-width: 48ch; }
+  .hero__facts li { position: relative; padding-left: var(--s-5); }
+  .hero__facts li::before {
+    content: ""; position: absolute; left: 0; top: 0.75em; width: 0.875rem; height: 2px; background: var(--color-text);
+  }
+  .hero__facts strong { font-weight: 600; }
+  .hero__actions { display: grid; gap: var(--s-3); margin-top: var(--s-2); }
+  .hero__call { width: 100%; }
+  .hero__msg { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-3); }
+  .hero__msg .btn { padding-inline: var(--s-3); }
+  .hero__hours { font-size: var(--fs-0); }
+
+  .hero__scale { display: none; margin: 0; }
+
+  @media (min-width: 48rem) {
+    .hero__actions { display: flex; flex-wrap: wrap; align-items: center; }
+    .hero__call { width: auto; }
+    .hero__msg { display: flex; gap: var(--s-3); }
+    .hero__msg .btn { padding-inline: var(--s-5); }
+  }
+  @media (min-width: 64rem) {
+    .hero { padding-block: var(--s-7) var(--s-6); }
+    .hero__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gutter); align-items: center; }
+    .hero__main { grid-column: 1 / span 7; }
+    .hero__scale { display: grid; gap: var(--s-4); grid-column: 8 / span 4; margin-left: var(--s-6); }
+  }
+
+  .hero__scale-cap { font-size: var(--fs-0); font-weight: 600; }
+  .hscale { display: grid; gap: var(--s-4); }
+  .hscale__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-3); row-gap: var(--s-2); align-items: baseline; }
+  .hscale__name { font-weight: 600; font-size: var(--fs-0); }
+  .hscale__num { font: 800 var(--fs-3) / 1 var(--font-display); }
+  .hscale__track { grid-column: 1 / -1; height: var(--bar-h); background: var(--color-track); }
+  .hscale__fill {
+    display: block; height: 100%; width: calc(var(--w) * 100%);
+    background: var(--color-text); transform-origin: left center;
+  }
+  .hero__all {
+    justify-self: start; display: inline-flex; align-items: center; gap: var(--s-2);
+    min-height: var(--hit); font-weight: 600; text-decoration-color: var(--color-text);
+  }
+  .hero__all svg { width: 1.125rem; height: 1.125rem; transition: transform var(--dur-short) var(--ease-out); }
+  .hero__all:hover svg { transform: translateY(4px); }
+</style>

@@ -1,0 +1,134 @@
+---
+import FutureLink from "./FutureLink.astro";
+import { phone, SOON } from "../data/ars";
+// C-020 pickup, C-021 ARS delivery, C-022 Nova Poshta / Ukrposhta, C-010 payment.
+const pickup = [
+  { pre: "до", num: "1", unit: "год", text: "готуємо замовлення, якщо товар є в магазині" },
+  { pre: "", num: "48", unit: "год", text: "тримаємо резерв неоплаченого замовлення" },
+  { pre: "", num: "10", unit: "діб", text: "зберігаємо оплачене замовлення" },
+];
+const delivery = [
+  { pre: "до", num: "3", unit: "днів", text: "привозимо по Львову та приміській зоні" },
+  { pre: "від", num: "1000", unit: "грн", text: "по місту й приміській зоні" },
+  { pre: "від", num: "60", unit: "грн/км", text: "за межами приміської зони" },
+];
+---
+<section id="delivery" class="section delivery" data-rec="W-R003" aria-labelledby="delivery-title">
+  <div class="container">
+    <div class="section__head">
+      <h2 id="delivery-title">Як забрати у Львові</h2>
+      <p class="section__lead">Два способи отримати замовлення: забрати самому або замовити доставку АРС.</p>
+    </div>
+
+    <div class="tracks">
+      <article class="track">
+        <header class="track__head">
+          <h3>Самовивіз</h3>
+          <p class="track__tag">безкоштовно</p>
+        </header>
+        <ol class="axis">
+          {pickup.map((p) => (
+            <li class="axis__step"><span class="axis__mark">{p.pre && <span class="axis__unit">{p.pre} </span>}<span class="axis__num num">{p.num}</span><span class="axis__unit"> {p.unit}</span></span><span class="axis__text">{p.text}</span></li>
+          ))}
+        </ol>
+      </article>
+      <article class="track">
+        <header class="track__head">
+          <h3>Доставка АРС</h3>
+          <p class="track__tag">пн–⁠сб 9:00–⁠19:00, нд 10:00–⁠12:00</p>
+        </header>
+        <ol class="axis">
+          {delivery.map((p) => (
+            <li class="axis__step"><span class="axis__mark">{p.pre && <span class="axis__unit">{p.pre} </span>}<span class="axis__num num">{p.num}</span><span class="axis__unit"> {p.unit}</span></span><span class="axis__text">{p.text}</span></li>
+          ))}
+        </ol>
+      </article>
+    </div>
+
+    <div class="pay">
+      <h3 class="pay__title">Оплата</h3>
+      <dl class="pay__list">
+        <div><dt>При отриманні</dt><dd>готівкою або карткою</dd></div>
+        <div><dt>Онлайн</dt><dd>карткою, LiqPay або PrivatPay</dd></div>
+        <div><dt>Безготівково</dt><dd>для ТОВ і ФОП</dd></div>
+        <div><dt>Частинами</dt><dd>ПриватБанк і monobank, до 25 платежів від 500 грн, а також миттєва розстрочка. На покупки частинами не діють знижки й акції АРС.</dd></div>
+      </dl>
+    </div>
+
+    <div class="more">
+      <details class="more__item">
+        <summary>Де забрати замовлення у Львові</summary>
+        <div class="more__body">
+          <p>Адресу магазину уточнюйте за телефоном <a class="num" href={phone.href}>{phone.label}</a>. Менеджер підкаже, чи є потрібний товар у наявності.</p>
+        </div>
+      </details>
+      <details class="more__item">
+        <summary>Доставка по Україні</summary>
+        <div class="more__body">
+          <p>Нова Пошта: від 80 грн залежно від ваги й габаритів, як правило 1–3 дні. Також можна відправити Укрпоштою.</p>
+        </div>
+      </details>
+      <p class="more__link"><FutureLink note={SOON}>Усі умови доставки</FutureLink></p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .delivery { background: var(--color-bg-2); }
+  .tracks { display: grid; gap: var(--s-7); }
+  .track { display: grid; gap: var(--s-5); min-width: 0; }
+  .track__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-4); }
+  .track__head h3 { font: 800 var(--fs-3) / 1.1 var(--font-display); }
+  .track__tag { font-size: var(--fs-0); color: var(--color-muted); }
+
+  /* vertical axis on phones */
+  .axis { position: relative; display: grid; gap: var(--s-5); padding-left: var(--s-5); }
+  .axis::before { content: ""; position: absolute; left: 0; top: 0.4rem; bottom: 0.4rem; width: 2px; background: var(--color-text); }
+  .axis__step { position: relative; display: grid; gap: var(--s-1); }
+  .axis__step::before { content: ""; position: absolute; left: calc(-1 * var(--s-5)); top: 1.1rem; width: 0.75rem; height: 2px; background: var(--color-text); }
+  .axis__mark { white-space: nowrap; color: var(--color-accent); line-height: 1; }
+  .axis__num { font: 800 var(--fs-5) / 1 var(--font-display); letter-spacing: -0.01em; }
+  .axis__unit { font: 800 var(--fs-3) / 1 var(--font-display); }
+  .axis__text { max-width: 45ch; }
+
+  .pay { margin-top: var(--s-8); padding-top: var(--s-5); border-top: 2px solid var(--color-text); display: grid; gap: var(--s-5); }
+  .pay__title { font: 800 var(--fs-3) / 1.1 var(--font-display); }
+  .pay__list { display: grid; gap: var(--s-4); }
+  .pay__list div { display: grid; gap: var(--s-1); align-content: start; }
+  .pay__list dt { font-weight: 600; }
+  .pay__list dd { max-width: 46ch; }
+
+  .more { margin-top: var(--s-6); display: grid; max-width: 48rem; }
+  .more__item { border-top: 1px solid var(--color-rule); }
+  .more__item:last-of-type { border-bottom: 1px solid var(--color-rule); }
+  .more summary {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
+    min-height: var(--hit); padding-block: var(--s-3); cursor: pointer; font-weight: 600; list-style: none;
+  }
+  .more summary::-webkit-details-marker { display: none; }
+  .more summary::after {
+    content: "+"; font: 800 var(--fs-3) / 1 var(--font-display); color: var(--color-accent);
+    transition: transform var(--dur-short) var(--ease-out);
+  }
+  .more details[open] summary::after { transform: rotate(45deg); }
+  .more summary:hover { color: var(--color-deep); }
+  .more__body { padding-bottom: var(--s-4); max-width: var(--measure); }
+  .more__link { margin-top: var(--s-5); }
+
+  @media (min-width: 64rem) {
+    .tracks { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto auto; gap: var(--s-5) var(--s-8); }
+    .track { grid-row: span 2; grid-template-rows: subgrid; }
+    .pay { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gutter); }
+    .pay__title { grid-column: 1 / span 3; }
+    .pay__list { grid-column: 4 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5) var(--gutter); align-items: start; }
+    .more { margin-left: calc((100% - 11 * var(--gutter)) / 12 * 3 + 3 * var(--gutter)); max-width: none; }
+  }
+  @media (min-width: 80rem) {
+    /* horizontal time axis on wide screens */
+    .axis { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-4); padding-left: 0; padding-top: var(--s-5); }
+    .axis::before { left: 0; right: 0; top: 0; bottom: auto; width: auto; height: 2px; }
+    .axis__step::before { left: 0; top: calc(-1 * var(--s-5)); width: 2px; height: 0.75rem; }
+    .axis__num { font-size: clamp(2rem, 0.9rem + 1.6vw, 2.5rem); }
+    .axis__unit { font-size: var(--fs-2); }
+  }
+</style>
